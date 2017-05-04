@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GasMan.Data
+namespace GasMan.Models
 {
-    public class RetailPrice
+    public class CreateGas
     {
-        [Key]
-        public int ID { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
@@ -22,6 +20,5 @@ namespace GasMan.Data
         public double BP_Average { get; set; }
 
         public double Shell_Average { get; set; }
-
     }
 }

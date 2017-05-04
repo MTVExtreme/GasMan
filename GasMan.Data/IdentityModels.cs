@@ -1,10 +1,10 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace GasMan.Data
 {
@@ -31,6 +31,9 @@ namespace GasMan.Data
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<RetailPrice> GasPrices { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

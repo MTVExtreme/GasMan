@@ -53,11 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GasService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GasMan.Data\GasMan.Data.csproj">
+      <Project>{63fd816f-4943-49ed-aec2-f3b9d9d3a347}</Project>
+      <Name>GasMan.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GasMan.Models\GasMan.Models.csproj">
+      <Project>{4b465c27-fd24-4239-9089-c68b5b6c9d17}</Project>
+      <Name>GasMan.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
