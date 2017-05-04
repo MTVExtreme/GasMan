@@ -3,7 +3,7 @@ using GasMan.Models;
 
 namespace GasMan.Services
 {
-    class GasService
+    public class GasService
     {
         public bool GasCreate(CreateGas model)
         {
