@@ -14,6 +14,8 @@ namespace GasMan.Data
         [Required]
         public double US_Average { get; set; }
 
+        public string Year { get; set; }
+
         [Required]
         public double Midwest_Average { get; set; }
 

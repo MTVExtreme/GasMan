@@ -1,4 +1,6 @@
-﻿@model IEnumerable<GasMan.Data.RetailPrice>
+﻿@model IEnumerable<GasMan.Web.Models.IndexViewListModel>
+@using Newtonsoft.Json
+@using System.Linq
 
 @{
     ViewBag.Title = "Index";
@@ -6,4 +8,68 @@
 
 <h2>Index</h2>
 
+<canvas id="lineChart" width="800" height="800"></canvas>
 
+
+
+
+@Scripts.Render("~/bundles/chart.bundle")
+<script type="text/javascript">
+    var d = new Date()
+    var data = {
+        labels: [@foreach(var str in ViewBag.Date)
+                        {
+                            @Html.Raw(str)
+                            @Html.Raw(",");
+                } ],
+        datasets: [
+            {
+                label: "Gas Price Dataset",
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointDot: false,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                data:  [@foreach(var str in ViewBag.UsAverage)
+                        {
+                            @*@Html.Raw("var d = " + str);
+                            @Html.Raw("d");*@
+                            @Html.Raw(str); 
+                            @Html.Raw(",");
+                }],
+                spanGaps: false,
+                            }
+                        ]
+    };
+
+
+                        var CHART = document.getElementById("lineChart");
+                        console.log(CHART);
+                        var lineChart = new Chart(CHART, {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                showXLabels: 10,
+                                title: {
+                                    display: true,
+                                    text: 'US Gas Prices Over time'
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        type: 'time',
+                                        ticks: {
+                                            autoSkip: true,
+                                            maxTicksLimit: 10
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+
+</script>

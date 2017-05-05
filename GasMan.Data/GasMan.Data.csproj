@@ -54,6 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Migrations\201705041400435_InitialCreate.cs" />
+    <Compile Include="Migrations\201705041400435_InitialCreate.Designer.cs">
+      <DependentUpon>201705041400435_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705041926226_Added-Year.cs" />
+    <Compile Include="Migrations\201705041926226_Added-Year.Designer.cs">
+      <DependentUpon>201705041926226_Added-Year.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetailPrice.cs" />
@@ -61,6 +69,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705041400435_InitialCreate.resx">
+      <DependentUpon>201705041400435_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705041926226_Added-Year.resx">
+      <DependentUpon>201705041926226_Added-Year.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

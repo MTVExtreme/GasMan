@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GasMan.Data;
+using GasMan.Web.Models;
+using System.Globalization;
 
 namespace GasMan.Web.Controllers
 {
@@ -17,7 +19,44 @@ namespace GasMan.Web.Controllers
         // GET: GasPrice
         public ActionResult Index()
         {
-            return View(db.GasPrices.ToList());
+            using (var context = new ApplicationDbContext())
+            {
+                var query = from g in db.GasPrices
+                            select g.Date;
+
+                List<DateTime> dateListZ = query.ToList();
+                List<string> dateList = new List<string>();
+
+                foreach ( var d in dateListZ)
+                {
+                    var current = d.ToString("MM-dd-yyyy", CultureInfo.InvariantCulture);
+                    dateList.Add(current);
+                }
+
+                var datequery = from g in db.GasPrices
+                            select g.US_Average;
+                List<double> usList = datequery.ToList();
+
+                ViewBag.UsAverage = usList;
+                ViewBag.Date = dateList;
+
+            }
+
+
+            var qry = from q in db.GasPrices
+                      select new IndexViewListModel
+                      {
+                          Date = q.Date,
+                          US_Average = q.US_Average,
+                          Midwest_Average = q.Midwest_Average,
+                          Year = q.Year,
+                          Speedway_Average = q.Speedway_Average,
+                          BP_Average = q.BP_Average,
+                          Shell_Average = q.Shell_Average
+                      };
+
+            return View(qry);
+            //db.GasPrices.ToList()
         }
 
         // GET: GasPrice/Details/5
@@ -123,5 +162,6 @@ namespace GasMan.Web.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
