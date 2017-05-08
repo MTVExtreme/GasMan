@@ -8,40 +8,46 @@
 
 <h2>Index</h2>
 
+<div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-4"><input type="radio"name="Gas" value="US_Average" id="Gas"/>US Average</div>
+        <div class="col-md-2"><input type="radio" name="Gas" value="Midwest_Average" id="Gas" />Midwest Average</div>
+    </div>
+</div>
+
 <canvas id="lineChart" width="800" height="800"></canvas>
 
-
-
-
+@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/chart.bundle")
 <script type="text/javascript">
-    var d = new Date()
-    var data = {
+
+
+
+
+                var data = {
         labels: [@foreach(var str in ViewBag.Date)
                         {
-                            @Html.Raw(str)
-                            @Html.Raw(",");
+                            @Html.Raw("'" + str + "'");
+                            @Html.Raw(" ,");
                 } ],
         datasets: [
             {
-                label: "Gas Price Dataset",
+                label: "Gas Prices",
                 fill: false,
                 backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: "rgba(75,192,192,1)",
                 borderCapStyle: 'butt',
-                borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
                 pointDot: false,
                 pointHoverBackgroundColor: "rgba(75,192,192,1)",
                 pointHoverBorderColor: "rgba(220,220,220,1)",
-                data:  [@foreach(var str in ViewBag.UsAverage)
+                data: [@foreach(var str in ViewBag.UsAverage)
                         {
-                            @*@Html.Raw("var d = " + str);
-                            @Html.Raw("d");*@
-                            @Html.Raw(str); 
+
+                            @Html.Raw(str);
                             @Html.Raw(",");
-                }],
+                        }],
                 spanGaps: false,
                             }
                         ]
@@ -54,17 +60,16 @@
                             type: 'line',
                             data: data,
                             options: {
-                                showXLabels: 10,
+                                showXLabels: 11,
                                 title: {
                                     display: true,
                                     text: 'US Gas Prices Over time'
                                 },
                                 scales: {
                                     xAxes: [{
-                                        type: 'time',
                                         ticks: {
                                             autoSkip: true,
-                                            maxTicksLimit: 10
+                                            maxTicksLimit: 11
                                         }
                                     }]
                                 }
@@ -72,4 +77,44 @@
                         });
 
 
+
+                        @*$(function chartType(type) {
+                            var Dataset = new Object();
+                            if (type == US)
+                            {
+
+                        @foreach(var str in ViewBag.UsAverage)
+                        {
+
+                            @Html.Raw("Dataset.push(" + str + ");");
+                            @Html.Raw(",");
+
+                        }
+                                return Dataset;
+
+                            }
+                            else if (type == MID)
+                            {
+
+                                 @foreach(var str in ViewBag.MidwestAverage)
+                        {
+
+                            @Html.Raw(str);
+                            @Html.Raw(",");
+                        }
+
+                            return Dataset;
+                            }
+                        });
+
+                        $(function checkGas() {
+                            $("input[name='Gas']").on("click", function () {
+                                var gas = $(this).val();
+                                if (gas == US_Average) var chart = chartType(US)
+                                if (gas == Midwest_Average) var chart = chartType(MID)
+
+                                return chart;
+                            });
+                            var chart = chartType(US)
+                        });*@
 </script>

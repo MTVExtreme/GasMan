@@ -7,69 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GasMan.Data;
-using GasMan.Web.Models;
-using System.Globalization;
 
 namespace GasMan.Web.Controllers
 {
-    public class GasPriceController : Controller
+    public class AdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: GasPrice
+        // GET: Admin
         public ActionResult Index()
         {
-            using (var context = new ApplicationDbContext())
-            {
-                GasPriceList();
-
-            }
-
-
-            var qry = from q in db.GasPrices
-                      select new IndexViewListModel
-                      {
-                          Date = q.Date,
-                          US_Average = q.US_Average,
-                          Midwest_Average = q.Midwest_Average,
-                          Year = q.Year,
-                          Speedway_Average = q.Speedway_Average,
-                          BP_Average = q.BP_Average,
-                          Shell_Average = q.Shell_Average
-                      };
-
-            return View(qry);
-            //db.GasPrices.ToList()
+            return View(db.GasPrices.ToList());
         }
 
-        private void GasPriceList()
-        {
-            var query = from g in db.GasPrices
-                        select g.Date;
-
-            List<DateTime> dateListZ = query.ToList();
-            List<string> dateList = new List<string>();
-
-            foreach (var d in dateListZ)
-            {
-                var current = d.ToString("MMM-dd-yyyy");
-                dateList.Add(current);
-            }
-
-            var usQuery = from g in db.GasPrices
-                            select g.US_Average;
-            var midwestQuery = from g in db.GasPrices
-                          select g.Midwest_Average;
-
-            List<double> usList = usQuery.ToList();
-            List<double> MidwestList = midwestQuery.ToList();
-
-            ViewBag.UsAverage = usList;
-            ViewBag.MidwestAverage = MidwestList;
-            ViewBag.Date = dateList;
-        }
-
-        // GET: GasPrice/Details/5
+        // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -84,18 +35,18 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // GET: GasPrice/Create
+        // GET: Admin/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: GasPrice/Create
+        // POST: Admin/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,US_Average,Midwest_Average,Speedway_Average,BP_Average,Shell_Average")] RetailPrice retailPrice)
+        public ActionResult Create([Bind(Include = "ID,Date,US_Average,Year,Midwest_Average,Speedway_Average,BP_Average,Shell_Average")] RetailPrice retailPrice)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +58,7 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // GET: GasPrice/Edit/5
+        // GET: Admin/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,12 +73,12 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // POST: GasPrice/Edit/5
+        // POST: Admin/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Date,US_Average,Midwest_Average,Speedway_Average,BP_Average,Shell_Average")] RetailPrice retailPrice)
+        public ActionResult Edit([Bind(Include = "ID,Date,US_Average,Year,Midwest_Average,Speedway_Average,BP_Average,Shell_Average")] RetailPrice retailPrice)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +89,7 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // GET: GasPrice/Delete/5
+        // GET: Admin/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -153,7 +104,7 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // POST: GasPrice/Delete/5
+        // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -172,6 +123,5 @@ namespace GasMan.Web.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }
