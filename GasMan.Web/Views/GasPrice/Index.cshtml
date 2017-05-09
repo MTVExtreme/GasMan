@@ -7,15 +7,15 @@
 }
 
 <h2>Index</h2>
-
-<div>
-    <div class="row">
-        <div class="col-md-2 col-md-offset-4"><input type="radio"name="Gas" value="US_Average" id="Gas"/>US Average</div>
-        <div class="col-md-2"><input type="radio" name="Gas" value="Midwest_Average" id="Gas" />Midwest Average</div>
+<section id="Chart" height="800px">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2"><canvas id="lineChart" height="400px"></canvas></div>
+        </div>
     </div>
-</div>
+</section>
 
-<canvas id="lineChart" width="800" height="800"></canvas>
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/chart.bundle")
@@ -32,16 +32,16 @@
                 } ],
         datasets: [
             {
-                label: "Gas Prices",
+                label: "US Average Gas Prices",
                 fill: false,
                 backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: "rgba(75,192,192,1)",
-                borderCapStyle: 'butt',
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointDot: false,
-                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
+                //borderCapStyle: 'butt',
+                //borderDashOffset: 0.0,
+                //borderJoinStyle: 'miter',
+                //pointDot: false,
+                //pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                //pointHoverBorderColor: "rgba(220,220,220,1)",
                 data: [@foreach(var str in ViewBag.UsAverage)
                         {
 
@@ -49,7 +49,7 @@
                             @Html.Raw(",");
                         }],
                 spanGaps: false,
-                            }
+            }
                         ]
     };
 

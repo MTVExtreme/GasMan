@@ -1,14 +1,103 @@
-﻿@model GasMan.Data.RetailPrice
+﻿@model GasMan.Web.Models.PriceCalculatorViewModel
+@using Newtonsoft.Json
+@using System.Linq
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Price Calculator";
 }
 
 <h2>Gas Calculator</h2>
 
-@Html.BeginForm()
+@using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
 
+    <div class="form-horizontal">
+        <h4>Weekly Gas Price Calculator</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+        <div class="form-group">
+            <div class="col-md-4"><h6>Enter your car's average gas mileage(per gallon) Here:</h6></div>
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.GasMileage, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4"><h6>Enter the number of miles you expect to drive this week:</h6></div>
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.MilesDriven, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4"><h6>Enter Your Car's gas tank size(in gallons):</h6></div>
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.TankSize, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Calculate" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
+
+<dl class="dl-horizontal">
+    <dt>
+        Gas Mileage:
+    </dt>
+
+    <dd>
+        @ViewBag.Mileage;
+    </dd>
+
+    <dt>
+        Miles driven:
+    </dt>
+
+    <dd>
+        @ViewBag.Miles
+    </dd>
+
+    <dt>
+        Gas Tank Size:
+    </dt>
+
+    <dd>
+        @ViewBag.Tank
+    </dd>
+
+    <dt>
+        Midwest expected spending:
+    </dt>
+
+    <dd>
+        @ViewBag.Midwest
+    </dd>
+
+    <dt>
+        US expected spending:
+    </dt>
+
+    <dd>
+        @ViewBag.US
+    </dd>
+
+    <dt>
+        Gas Trips:
+    </dt>
+
+    <dd>
+        @ViewBag.Trips
+    </dd>
+
+
+</dl>
+
+  
+
+    <div>
+        @Html.ActionLink("Back to gas price chart", "Index")
+    </div>
 

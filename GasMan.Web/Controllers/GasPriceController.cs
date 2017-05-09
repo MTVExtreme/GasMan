@@ -32,10 +32,7 @@ namespace GasMan.Web.Controllers
                           Date = q.Date,
                           US_Average = q.US_Average,
                           Midwest_Average = q.Midwest_Average,
-                          Year = q.Year,
-                          Speedway_Average = q.Speedway_Average,
-                          BP_Average = q.BP_Average,
-                          Shell_Average = q.Shell_Average
+
                       };
 
             return View(qry);
@@ -107,62 +104,64 @@ namespace GasMan.Web.Controllers
             return View(retailPrice);
         }
 
-        // GET: GasPrice/Edit/5
-        public ActionResult Edit(int? id)
+
+        public ActionResult PriceCalculator(PriceCalculatorViewModel model)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RetailPrice retailPrice = db.GasPrices.Find(id);
-            if (retailPrice == null)
-            {
-                return HttpNotFound();
-            }
-            return View(retailPrice);
+            
+            var usPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().US_Average;
+            var midwestPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Midwest_Average;
+            var date = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Date;
+
+
+
+            var qry = from q in db.GasPrices
+                      select new PriceCalculatorViewModel
+                      {
+                          Date = date,
+                          US_Average = usPrice,
+                          Midwest_Average = midwestPrice,
+
+                      };
+
+
+            return View(model);
         }
 
-        // POST: GasPrice/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Date,US_Average,Midwest_Average,Speedway_Average,BP_Average,Shell_Average")] RetailPrice retailPrice)
+        public ActionResult PriceCalculator(bool? post, PriceCalculatorViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(retailPrice).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var usPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().US_Average;
+                var midwestPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Midwest_Average;
+                var date = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Date;
+
+                ViewBag.Mileage = model.GasMileage;
+                ViewBag.Miles = model.MilesDriven;
+                ViewBag.Tank = model.TankSize;
+                ViewBag.US = model.PriceUS;
+                ViewBag.Midwest = model.PriceMidwest;
+
+
+                var qry = from q in db.GasPrices
+                          select new PriceCalculatorViewModel
+                          {
+                              Date = date,
+                              US_Average = usPrice,
+                              Midwest_Average = midwestPrice,
+
+                          };
+
+
+                return View(model);
             }
-            return View(retailPrice);
+            else {
+                return View();
+            }
+            
         }
 
-        // GET: GasPrice/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RetailPrice retailPrice = db.GasPrices.Find(id);
-            if (retailPrice == null)
-            {
-                return HttpNotFound();
-            }
-            return View(retailPrice);
-        }
-
-        // POST: GasPrice/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            RetailPrice retailPrice = db.GasPrices.Find(id);
-            db.GasPrices.Remove(retailPrice);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

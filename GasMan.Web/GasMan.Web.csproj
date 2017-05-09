@@ -199,6 +199,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IndexViewListModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PriceCalculatorViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

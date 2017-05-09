@@ -13,9 +13,5 @@ namespace GasMan.Web.Models
 
         public double US_Average;
         public double Midwest_Average;
-        public string Year;
-        public double Speedway_Average;
-        public double BP_Average;
-        public double Shell_Average;
     }
 }
