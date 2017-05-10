@@ -10,7 +10,7 @@
 <section id="Chart" height="800px">
     <div class="content">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2"><canvas id="lineChart" height="400px"></canvas></div>
+            <div class="col-lg-8 col-lg-offset-2"><canvas id="lineChart" class="widgetcanvas"> </canvas></div>
         </div>
     </div>
 </section>
@@ -21,7 +21,15 @@
 @Scripts.Render("~/bundles/chart.bundle")
 <script type="text/javascript">
 
-
+    function chartStepOne() {
+        var currentWindowHeight = $(window).height()
+        var canvas = document.getElementById("lineChart")
+        var chartHeight = currentWindowHeight - 220
+        var lineChartParent = document.getElementById('linechartparent')
+        canvas.width = lineChartParent.clientWidth;
+        canvas.height = chartHeight;
+        generateLineChart()
+    }
 
 
                 var data = {
@@ -32,7 +40,7 @@
                 } ],
         datasets: [
             {
-                label: "Midwest Average Gas Prices Per Week Since November 28, 1994",
+                label: "Midwest Average Gas Prices Per Week",
                 fill: false,
                 backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: "rgba(75,192,192,1)",
@@ -58,7 +66,7 @@
                                 title: {
                                     display: false,
                                 },
-                                legend: { labels: { fontColor: "rgb(20,20,20)", fontSize: 18 } },
+                                legend: { labels: { fontColor: "rgb(20,20,20)", fontSize: 14 } },
                                 scales: {
                                     xAxes: [{
                                         ticks: {
