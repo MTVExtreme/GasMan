@@ -1,14 +1,11 @@
-﻿using System;
+﻿using GasMan.Data;
+using GasMan.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using GasMan.Data;
-using GasMan.Web.Models;
-using System.Globalization;
 
 namespace GasMan.Web.Controllers
 {
@@ -136,6 +133,9 @@ namespace GasMan.Web.Controllers
                 var usPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().US_Average;
                 var midwestPrice = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Midwest_Average;
                 var date = db.GasPrices.OrderByDescending(p => p.ID).FirstOrDefault().Date;
+
+                model.Midwest_Average = midwestPrice;
+                model.US_Average = usPrice;
 
                 ViewBag.Mileage = model.GasMileage;
                 ViewBag.Miles = model.MilesDriven;

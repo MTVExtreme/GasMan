@@ -32,16 +32,10 @@
                 } ],
         datasets: [
             {
-                label: "US Average Gas Prices",
+                label: "Midwest Average Gas Prices Per Week Since November 28, 1994",
                 fill: false,
                 backgroundColor: "rgba(75,192,192,0.4)",
                 borderColor: "rgba(75,192,192,1)",
-                //borderCapStyle: 'butt',
-                //borderDashOffset: 0.0,
-                //borderJoinStyle: 'miter',
-                //pointDot: false,
-                //pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                //pointHoverBorderColor: "rgba(220,220,220,1)",
                 data: [@foreach(var str in ViewBag.UsAverage)
                         {
 
@@ -62,14 +56,20 @@
                             options: {
                                 showXLabels: 11,
                                 title: {
-                                    display: true,
-                                    text: 'US Gas Prices Over time'
+                                    display: false,
                                 },
+                                legend: { labels: { fontColor: "rgb(20,20,20)", fontSize: 18 } },
                                 scales: {
                                     xAxes: [{
                                         ticks: {
+                                            fontColor: "rgb(20,20,20)",
                                             autoSkip: true,
                                             maxTicksLimit: 11
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        ticks: {
+                                            fontColor: "rgb(20,20,20)",
                                         }
                                     }]
                                 }

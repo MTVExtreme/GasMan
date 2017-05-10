@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace GasMan.Web.Models
 {
@@ -19,7 +16,7 @@ namespace GasMan.Web.Models
         {
             get
             {
-                return GasMileage * MilesDriven * US_Average;
+                return (MilesDriven / GasMileage ) * US_Average;
             }
         }
 
@@ -27,7 +24,7 @@ namespace GasMan.Web.Models
         {
             get
             {
-                return GasMileage * MilesDriven * Midwest_Average;
+                return (MilesDriven / GasMileage) * Midwest_Average;
             }
         }
 
